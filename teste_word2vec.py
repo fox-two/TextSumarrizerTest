@@ -1,6 +1,7 @@
 from gensim.models import KeyedVectors
 model = KeyedVectors.load('modelo_word2vec')
 from sklearn.metrics.pairwise import cosine_similarity
+from pprint import pprint
 
 while True:
 	vetor_pesquisa = model[input("Palavra: ")]
