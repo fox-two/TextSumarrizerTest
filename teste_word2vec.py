@@ -2,10 +2,10 @@ from gensim.models import KeyedVectors
 model = KeyedVectors.load('modelo_word2vec')
 
 while True:
-	vetor_pesquisa = model['motorista']
+	vetor_pesquisa = model[input("Palavra: ")]
 	distancias = [(model.index2word[i], resultado[0]) for i, resultado in enumerate(cosine_similarity(model.vectors, [vetor_pesquisa]))]
 	distancias = sorted(distancias, key=lambda x: x[1], reverse=True)
-	pprint(distancias[0:20])
+	pprint(distancias[0:30])
 
 print("fim")
 #from gensim.models import KeyedVectors
