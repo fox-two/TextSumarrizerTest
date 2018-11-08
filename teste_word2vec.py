@@ -1,21 +1,17 @@
 from gensim.models import KeyedVectors
 model = KeyedVectors.load('modelo_word2vec')
 
+while True:
+	vetor_pesquisa = model['motorista']
+	distancias = [(model.index2word[i], resultado[0]) for i, resultado in enumerate(cosine_similarity(model.vectors, [vetor_pesquisa]))]
+	distancias = sorted(distancias, key=lambda x: x[1], reverse=True)
+	pprint(distancias[0:20])
 
-vetor_pesquisa = model['ferrugem']
+print("fim")
+#from gensim.models import KeyedVectors
+#model = KeyedVectors.load_word2vec_format('glove_s50.txt')
 
-from sklearn.metrics.pairwise import cosine_similarity
-
-distancias = [(model.index2word[i], resultado[0]) for i, resultado in enumerate(cosine_similarity(model.vectors, [vetor_pesquisa]))]
-
-distancias = sorted(distancias, key=lambda x: x[1], reverse=True)
-
-from pprint import pprint
-
-
-pprint(distancias[0:20])
-
-
+'''
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans, AffinityPropagation, DBSCAN, AgglomerativeClustering
 import matplotlib.pyplot as plt
@@ -37,3 +33,4 @@ pca = PCA(n_components=2)
 pontos_2d = pca.fit_transform(model.vectors)
 plt.scatter(pontos_2d[:, 0], pontos_2d[:, 1], c=c)
 plt.show()
+'''
