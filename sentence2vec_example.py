@@ -5,7 +5,9 @@ from nltk.tokenize import sent_tokenize
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans, AffinityPropagation, DBSCAN, AgglomerativeClustering
 import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
+import pickle
+from nltk.tokenize import sent_tokenize
+
 
 model = KeyedVectors.load('modelo_word2vec')
 
@@ -18,11 +20,19 @@ from pprint import pprint
 
 from sentence2vec import sentence_vectorizer
 
-sent_vectorizer = sentence_vectorizer(frases, model)
+
+
+def train():
+    phrases, original_phrases = getPhrases()
+    sent_vectorizer = sentence_vectorizer(phrases, model)
+    pickle.dump(sent_vectorizer, open("sent_vectorizer.bin", "wb"))
+
+
 
 
 def sumarize_email(texto):
-    linhas = [x for x in texto.split('\n') if x != ""]
+    sent_vectorizer = pickle.load( open( "sent_vectorizer.bin", "rb" ) )
+    linhas = sent_tokenize(texto, language='portuguese')
 
     vetores = [sent_vectorizer.infer_vector(x) for x in linhas]
 
@@ -47,9 +57,7 @@ def sumarize_email(texto):
 
 
     
-    #############
-'''
-    
+    #############'''    
     clusters_itens = {}
     for classe in clusters_calculados:
         clusters_itens[classe] = [x for i, x in enumerate(linhas) if c[i] == classe]
@@ -63,10 +71,7 @@ def sumarize_email(texto):
     plt.scatter(pontos_2d[:, 0], pontos_2d[:, 1], c=c)
     plt.show()
     return centros
-  
 
-texto_id = 91
-sumarize_email(texto_original[texto_id])
 
 
 def mostraSimilares(vetor_pesquisa):

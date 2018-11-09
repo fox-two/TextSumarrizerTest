@@ -1,18 +1,4 @@
-import csv
-import json
-import os.path
 import gensim
-from gensim.models import Word2Vec
-import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
-from gensim.corpora import Dictionary
-import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
-from nltk.stem.snowball import SnowballStemmer
-import gensim
-from gensim.utils import simple_preprocess
-import spacy
-from nltk.tokenize import sent_tokenize
 from ler_dataset import getTrainingData
 
 import logging

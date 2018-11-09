@@ -16,7 +16,7 @@
 #  limitations under the License.
 
 import numpy as np
-from sklearn.decomposition import PCA
+from sklearn.decomposition import PCA, IncrementalPCA
 from sklearn.preprocessing import normalize
 import gensim
 
@@ -42,7 +42,7 @@ class sentence_vectorizer:
         sentence_set = [self._preprocess_sentence(x) for x in sentence_list]
 
         # calculate PCA of this sentence set
-        pca = PCA(n_components=self.embedding_size)
+        pca = IncrementalPCA(n_components=self.embedding_size)
         pca.fit(np.array(sentence_set))
         self.u = pca.components_[0]  # the PCA vector
         self.u = np.multiply(self.u, np.transpose(self.u))  # u x uT

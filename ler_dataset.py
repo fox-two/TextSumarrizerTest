@@ -20,7 +20,6 @@ def getTrainingData():
 	dataset = []
 	texto_original = []
 
-	
 	print('Lendo emails...')
 	with open('articles.csv', encoding='utf-8') as csvfile:
 		table = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -31,9 +30,30 @@ def getTrainingData():
 			frase_original = row[1].lower()
 			frase_processada = processa_frase(frase_original, False)
 
-			#texto_original.append(frase_original)
 			dataset.append(frase_processada)
 
 	print("%i emails lidos" % len(dataset))
 
+	return dataset, texto_original
+
+
+def getPhrases():
+	dataset = []
+	texto_original = []
+	print('Lendo emails...')
+	with open('articles.csv', encoding='utf-8') as csvfile:
+		table = csv.reader(csvfile, delimiter=',', quotechar='"')
+		for i, row in enumerate(table):
+			if i == 0:
+				continue		
+			print("Email %d" % i)
+			email_original = row[1].lower()
+
+			frases = sent_tokenize(email_original, language='portuguese')
+
+			for f in frases:
+				dataset.append(processa_frase(f, False))
+				texto_original.append(f)
+
+	print("%i frases lidas" % len(dataset))
 	return dataset, texto_original
