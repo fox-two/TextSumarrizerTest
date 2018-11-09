@@ -33,14 +33,14 @@ def sumarize_email(texto):
 
     vetores = [sent_vectorizer.infer_vector(x) for x in linhas]
 
-    clusterizador = AffinityPropagation()
+    clusterizador = KMeans(n_clusters=15)#AffinityPropagation()
     c = clusterizador.fit_predict(vetores)
 
     clusters_calculados = set(c)
     ######################
     #exclusivo kmeans
 
-    '''
+ 
     dists = clusterizador.transform(vetores)
 
     centros = []
@@ -54,7 +54,7 @@ def sumarize_email(texto):
 
 
     
-    #############'''    
+    '''
     clusters_itens = {}
     for classe in clusters_calculados:
         clusters_itens[classe] = [x for i, x in enumerate(linhas) if c[i] == classe]
@@ -66,7 +66,10 @@ def sumarize_email(texto):
         
         for linha in clusters_itens[cluster_atual]:
             resumo += linha
-
+'''
+    resumo = ""
+    for i in centros:
+        resumo += centros
 
     return resumo
 
