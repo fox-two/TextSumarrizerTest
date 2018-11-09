@@ -59,9 +59,14 @@ def sumarize_email(texto):
     for classe in clusters_calculados:
         clusters_itens[classe] = [x for i, x in enumerate(linhas) if c[i] == classe]
 
-    resumo = []
-    for a in clusterizador.cluster_centers_indices_:
-        resumo.append(linhas[a])
+    resumo = ""
+
+    for cluster_atual in clusters_itens.keys():
+        resumo += "\n\n################################################\nCluster %d:\n" % cluster_atual
+        
+        for linha in clusters_itens[cluster_atual]:
+            resumo += linhas[linha]
+
 
     return resumo
 
