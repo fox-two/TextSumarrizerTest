@@ -71,7 +71,8 @@ def sumarize_email(texto, n):
 '''
     resumo = ""
     
-    pprint(centros)
+    for a in centros:
+        resumo += a + '\n'
 
     return resumo
 
