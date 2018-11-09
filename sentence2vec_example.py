@@ -52,6 +52,7 @@ def sumarize_email(texto):
 
         centros.append(sorted([(x, distancias_cluster_atual[x]) for x in itens_cluster_atual], key=lambda k: k[1])[0][0])
         centros = sorted(centros)
+        centros = map(lambda x: linhas[x], centros)
 
 
     
