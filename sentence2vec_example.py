@@ -58,11 +58,13 @@ def sumarize_email(texto):
     '''
     clusters_itens = {}
     for classe in clusters_calculados:
-        clusters_itens[classe] = [x for i, x in enumerate(linhas) if c[i] == classe]
-
+        clusters_itens[classe] = sorted([i for i, x in enumerate(linhas) if c[i] == classe])
+        clusters_itens[classe] = [linhas[x] for x in clusters_itens[classe]]
 
     resumo = ""
     
+    
+
     pprint(clusters_itens)
 
     return resumo
