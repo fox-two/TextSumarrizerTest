@@ -59,15 +59,11 @@ def sumarize_email(texto):
     for classe in clusters_calculados:
         clusters_itens[classe] = [x for i, x in enumerate(linhas) if c[i] == classe]
 
-    pprint(clusters_itens)
+    resumo = []
+    for a in clusterizador.cluster_centers_indices_:
+        resumo.append(linhas[a])
 
-    pca = PCA(n_components=2)
-    pontos_2d = pca.fit_transform(np.array(vetores))
-
-    #np.save('pca_frases', pontos_2d)
-    plt.scatter(pontos_2d[:, 0], pontos_2d[:, 1], c=c)
-    plt.show()
-    return centros
+    return resumo
 
 
 

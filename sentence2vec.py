@@ -32,6 +32,7 @@ def processa_frase(frase):
 class sentence_vectorizer:
     def __init__(self, sentence_list, model, a: float=1e-3):
         word_vectors = model.vectors
+        print("copy word freq")
         word_freq    = [model.vocab[x].count for x in model.vocab]
         self.model = model
         self.embedding_size = len(word_vectors[0])
@@ -39,8 +40,9 @@ class sentence_vectorizer:
         self.word_vectors = word_vectors
         self.word_frequency = word_freq
 
+        print("Tokenizing phrases")
         sentence_set = [self._preprocess_sentence(x) for x in sentence_list]
-
+        print("Incremental PCA")
         # calculate PCA of this sentence set
         pca = IncrementalPCA(n_components=self.embedding_size)
         pca.fit(np.array(sentence_set))
