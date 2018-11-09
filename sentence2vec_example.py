@@ -65,7 +65,7 @@ def sumarize_email(texto):
         resumo += "\n\n################################################\nCluster %d:\n" % cluster_atual
         
         for linha in clusters_itens[cluster_atual]:
-            resumo += linhas[linha]
+            resumo += linha
 
 
     return resumo
