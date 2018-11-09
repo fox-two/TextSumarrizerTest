@@ -27,20 +27,20 @@ def train():
 
 
 
-def sumarize_email(texto):
+def sumarize_email(texto, n):
     sent_vectorizer = pickle.load( open( "sent_vectorizer.bin", "rb" ) )
     linhas = sent_tokenize(texto, language='portuguese')
 
     vetores = [sent_vectorizer.infer_vector(x) for x in linhas]
 
-    clusterizador = AffinityPropagation()
+    clusterizador = KMeans(n_clusters=n)#AffinityPropagation()
     c = clusterizador.fit_predict(vetores)
 
     clusters_calculados = set(c)
     ######################
     #exclusivo kmeans
 
-    '''
+ 
     dists = clusterizador.transform(vetores)
 
     centros = []
@@ -54,18 +54,24 @@ def sumarize_email(texto):
     centros = sorted(centros)
     centros = list(map(lambda x: linhas[x], centros))
 
+
     
     '''
     clusters_itens = {}
     for classe in clusters_calculados:
-        clusters_itens[classe] = sorted([i for i, x in enumerate(linhas) if c[i] == classe])
-        clusters_itens[classe] = [linhas[x] for x in clusters_itens[classe]]
+        clusters_itens[classe] = [x for i, x in enumerate(linhas) if c[i] == classe]
 
     resumo = ""
-    
-    
 
-    pprint(clusters_itens)
+    for cluster_atual in clusters_itens.keys():
+        resumo += "\n\n################################################\nCluster %d:\n" % cluster_atual
+        
+        for linha in clusters_itens[cluster_atual]:
+            resumo += linha
+'''
+    resumo = ""
+    
+    pprint(centros)
 
     return resumo
 
