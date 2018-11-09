@@ -9,11 +9,7 @@ import pickle
 from nltk.tokenize import sent_tokenize
 
 
-model = KeyedVectors.load('modelo_word2vec')
 
-
-emails, texto_original = getTrainingData()
-frases = getPhrases()
 
 from sklearn.metrics.pairwise import cosine_similarity, euclidean_distances
 from pprint import pprint
@@ -23,6 +19,7 @@ from sentence2vec import sentence_vectorizer
 
 
 def train():
+    model = KeyedVectors.load('modelo_word2vec')
     phrases, original_phrases = getPhrases()
     sent_vectorizer = sentence_vectorizer(phrases, model)
     pickle.dump(sent_vectorizer, open("sent_vectorizer.bin", "wb"))
